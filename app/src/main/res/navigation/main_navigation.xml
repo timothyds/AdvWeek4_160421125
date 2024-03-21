@@ -7,7 +7,8 @@
     <fragment
         android:id="@+id/studentListFragment"
         android:name="com.nativepractice.advweek4160421125.view.StudentListFragment"
-        android:label="StudentListFragment" >
+        android:label="StudentListFragment"
+        tools:layout="@layout/fragment_student_list">
         <action
             android:id="@+id/actionStudentDetail"
             app:destination="@id/studentDetailFragment" />
