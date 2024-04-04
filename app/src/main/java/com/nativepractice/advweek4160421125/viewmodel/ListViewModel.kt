@@ -51,6 +51,7 @@ class ListViewModel(application: Application):AndroidViewModel(application) {
 //            Student("11204","Dinny","1994/10/07","6827808747","http://dummyimage.com/75x100.jpg/5fa2dd/ffffff1")
 //        )
     }
+
     override fun onCleared() {
         super.onCleared()
         queue?.cancelAll(TAG)

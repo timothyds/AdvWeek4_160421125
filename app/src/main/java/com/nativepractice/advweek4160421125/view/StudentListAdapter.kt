@@ -1,5 +1,6 @@
 package com.nativepractice.advweek4160421125.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nativepractice.advweek4160421125.R
 import com.nativepractice.advweek4160421125.databinding.StudentListItemBinding
 import com.nativepractice.advweek4160421125.model.Student
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.util.concurrent.Callable
 
 class StudentListAdapter (val studentList:ArrayList<Student>) :RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(){
 //    class StudentViewHolder (val view: View) :RecyclerView.ViewHolder(view)
@@ -35,6 +39,27 @@ class StudentListAdapter (val studentList:ArrayList<Student>) :RecyclerView.Adap
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         holder.binding.txtId.text = studentList[position].id
         holder.binding.txtName.text = studentList[position].name
+        val picasso = Picasso.Builder(holder.itemView.context)
+        picasso.listener { picasso, uri, exception ->
+            exception.printStackTrace()
+        }
+        picasso.build().load(studentList[position].photoUrl).into(holder.binding.imageView)
+        picasso.build().load(studentList[position].photoUrl)
+            .into(holder.binding.imageView, object:Callback {
+                override fun onSuccess() {
+                    holder.binding.progressImage.visibility = View.INVISIBLE
+                    holder.binding.imageView.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    Log.e("picasso_error", e.toString())
+                }
+            })
+
+//        val url = studentList[position].photoUrl
+//        val builder = Picasso.Builder(holder.itemView.context)
+//        builder.listener { picasso, uri, exception ->  exception.printStackTrace() }
+//        Picasso.get().load(url).into(holder.binding.imageView)
         holder.binding.btnDetail.setOnClickListener {
             val action = StudentListFragmentDirections.actionStudentDetail()
             Navigation.findNavController(it).navigate(action)
