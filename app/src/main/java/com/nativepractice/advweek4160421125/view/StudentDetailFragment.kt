@@ -49,7 +49,7 @@ class StudentDetailFragment : Fragment() {
         binding = FragmentStudentDetailBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
+        viewModel.fetch(studentId = "")
 
         observeStudent()
 
