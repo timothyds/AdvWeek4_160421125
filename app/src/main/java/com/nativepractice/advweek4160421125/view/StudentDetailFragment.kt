@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.vectordrawable.animated.R
 import com.nativepractice.advweek4160421125.databinding.FragmentStudentDetailBinding
 import com.nativepractice.advweek4160421125.viewmodel.DetailViewModel
+import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
@@ -38,6 +39,7 @@ class StudentDetailFragment : Fragment() {
             binding.txtStudentName.setText(viewModel.studentLD.value?.name)
             binding.txtBoD.setText(viewModel.studentLD.value?.dob)
             binding.txtPhone.setText(viewModel.studentLD.value?.phone)
+            Picasso.get().load(student.photoUrl).into(binding.imageView2)
         })
     }
 
@@ -49,7 +51,8 @@ class StudentDetailFragment : Fragment() {
         binding = FragmentStudentDetailBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch(studentId = "")
+        val studentId = requireArguments().getString("studentId")
+        viewModel.fetch(studentId!!, requireContext())
 
         observeStudent()
 

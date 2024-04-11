@@ -12,13 +12,14 @@
         <action
             android:id="@+id/actionStudentDetail"
             app:destination="@id/studentDetailFragment" />
-        <argument
-            android:name="studentId"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/studentDetailFragment"
         android:name="com.nativepractice.advweek4160421125.view.StudentDetailFragment"
         android:label="fragment_student_detail"
-        tools:layout="@layout/fragment_student_detail" />
+        tools:layout="@layout/fragment_student_detail" >
+        <argument
+            android:name="studentId"
+            app:argType="string" />
+    </fragment>
 </navigation>

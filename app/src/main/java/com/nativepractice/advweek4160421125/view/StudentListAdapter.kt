@@ -61,7 +61,8 @@ class StudentListAdapter (val studentList:ArrayList<Student>) :RecyclerView.Adap
 //        builder.listener { picasso, uri, exception ->  exception.printStackTrace() }
 //        Picasso.get().load(url).into(holder.binding.imageView)
         holder.binding.btnDetail.setOnClickListener {
-            val action = StudentListFragmentDirections.actionStudentDetail(studentId)
+            val studentId = studentList[position].id
+            val action = StudentListFragmentDirections.actionStudentDetail(studentId.toString())
             Navigation.findNavController(it).navigate(action)
         }
     }

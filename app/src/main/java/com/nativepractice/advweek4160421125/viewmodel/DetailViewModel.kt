@@ -10,23 +10,21 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.nativepractice.advweek4160421125.model.Student
 
-class DetailViewModel(application: Application) : AndroidViewModel(application) {
+class DetailViewModel:ViewModel() {
     val studentLD = MutableLiveData<Student>()
-    fun fetch(studentId: String) {
+    fun fetch(studentId: String, context: Context) {
         val url = "http://adv.jitusolution.com/student.php?id=$studentId"
-        val requestQueue = Volley.newRequestQueue(getApplication() as Context)
-        val request = StringRequest(Request.Method.GET, url,
-            { response ->
-                val gson = Gson()
-                val student = gson.fromJson(response, Student::class.java)
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            {
+                response ->
+                val student = Gson().fromJson<Student>(response, Student::class.java)
                 studentLD.postValue(student)
             },
-            { error ->
+            {
+                error->
                 error.printStackTrace()
             })
-
-        // Add the request to the RequestQueue.
-        Volley.newRequestQueue(getApplication<Application>().applicationContext).add(request)
+        Volley.newRequestQueue(context).add(stringRequest)
     }
 
 }
